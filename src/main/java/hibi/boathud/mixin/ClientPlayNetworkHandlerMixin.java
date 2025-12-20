@@ -11,7 +11,7 @@ import hibi.boathud.HudData;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
-import net.minecraft.world.entity.vehicle.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPlayNetworkHandlerMixin {

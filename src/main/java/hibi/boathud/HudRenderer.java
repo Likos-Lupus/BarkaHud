@@ -4,7 +4,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public class HudRenderer {
@@ -85,7 +85,7 @@ public class HudRenderer {
 
 	/** Implementation is cloned from the notchian ping display in the tab player list.	 */
 	private void renderPing(GuiGraphics graphics, int x, int y) {
-		ResourceLocation bar = PING_5;
+		Identifier bar = PING_5;
 		if(Common.hudData.ping < 0) {
 			bar = PING_UNKNOWN;
 		}
@@ -112,30 +112,30 @@ public class HudRenderer {
 		graphics.drawString(this.client.font, text, centerX - this.client.font.width(text) / 2, y, color);
 	}
 
-	private static final ResourceLocation
-		BACKGROUND_EXTENDED = ResourceLocation.fromNamespaceAndPath("boathud", "background_extended"),
-		BACKGROUND_COMPACT = ResourceLocation.fromNamespaceAndPath("boathud", "background_compact"),
-		LEFT_UNLIT = ResourceLocation.fromNamespaceAndPath("boathud", "left_unlit"),
-		LEFT_LIT = ResourceLocation.fromNamespaceAndPath("boathud", "left_lit"),
-		RIGHT_UNLIT = ResourceLocation.fromNamespaceAndPath("boathud", "right_unlit"),
-		RIGHT_LIT = ResourceLocation.fromNamespaceAndPath("boathud", "right_lit"),
-		FORWARD_UNLIT = ResourceLocation.fromNamespaceAndPath("boathud", "forward_unlit"),
-		FORWARD_LIT = ResourceLocation.fromNamespaceAndPath("boathud", "forward_lit"),
-		BACKWARD_UNLIT = ResourceLocation.fromNamespaceAndPath("boathud", "backward_unlit"),
-		BACKWARD_LIT = ResourceLocation.fromNamespaceAndPath("boathud", "backward_lit"),
-		BAR_1_UNLIT = ResourceLocation.fromNamespaceAndPath("boathud", "bar_1_unlit"),
-		BAR_1_LIT = ResourceLocation.fromNamespaceAndPath("boathud", "bar_1_lit"),
-		BAR_2_UNLIT = ResourceLocation.fromNamespaceAndPath("boathud", "bar_2_unlit"),
-		BAR_2_LIT = ResourceLocation.fromNamespaceAndPath("boathud", "bar_2_lit"),
-		BAR_3_UNLIT = ResourceLocation.fromNamespaceAndPath("boathud", "bar_3_unlit"),
-		BAR_3_LIT = ResourceLocation.fromNamespaceAndPath("boathud", "bar_3_lit"),
-		PING_5 = ResourceLocation.fromNamespaceAndPath("boathud", "ping_5"),
-		PING_4 = ResourceLocation.fromNamespaceAndPath("boathud", "ping_4"),
-		PING_3 = ResourceLocation.fromNamespaceAndPath("boathud", "ping_3"),
-		PING_2 = ResourceLocation.fromNamespaceAndPath("boathud", "ping_2"),
-		PING_1 = ResourceLocation.fromNamespaceAndPath("boathud", "ping_1"),
-		PING_UNKNOWN = ResourceLocation.fromNamespaceAndPath("boathud", "ping_unknown")
+	private static final Identifier
+		BACKGROUND_EXTENDED = Identifier.fromNamespaceAndPath("boathud", "background_extended"),
+		BACKGROUND_COMPACT = Identifier.fromNamespaceAndPath("boathud", "background_compact"),
+		LEFT_UNLIT = Identifier.fromNamespaceAndPath("boathud", "left_unlit"),
+		LEFT_LIT = Identifier.fromNamespaceAndPath("boathud", "left_lit"),
+		RIGHT_UNLIT = Identifier.fromNamespaceAndPath("boathud", "right_unlit"),
+		RIGHT_LIT = Identifier.fromNamespaceAndPath("boathud", "right_lit"),
+		FORWARD_UNLIT = Identifier.fromNamespaceAndPath("boathud", "forward_unlit"),
+		FORWARD_LIT = Identifier.fromNamespaceAndPath("boathud", "forward_lit"),
+		BACKWARD_UNLIT = Identifier.fromNamespaceAndPath("boathud", "backward_unlit"),
+		BACKWARD_LIT = Identifier.fromNamespaceAndPath("boathud", "backward_lit"),
+		BAR_1_UNLIT = Identifier.fromNamespaceAndPath("boathud", "bar_1_unlit"),
+		BAR_1_LIT = Identifier.fromNamespaceAndPath("boathud", "bar_1_lit"),
+		BAR_2_UNLIT = Identifier.fromNamespaceAndPath("boathud", "bar_2_unlit"),
+		BAR_2_LIT = Identifier.fromNamespaceAndPath("boathud", "bar_2_lit"),
+		BAR_3_UNLIT = Identifier.fromNamespaceAndPath("boathud", "bar_3_unlit"),
+		BAR_3_LIT = Identifier.fromNamespaceAndPath("boathud", "bar_3_lit"),
+		PING_5 = Identifier.fromNamespaceAndPath("boathud", "ping_5"),
+		PING_4 = Identifier.fromNamespaceAndPath("boathud", "ping_4"),
+		PING_3 = Identifier.fromNamespaceAndPath("boathud", "ping_3"),
+		PING_2 = Identifier.fromNamespaceAndPath("boathud", "ping_2"),
+		PING_1 = Identifier.fromNamespaceAndPath("boathud", "ping_1"),
+		PING_UNKNOWN = Identifier.fromNamespaceAndPath("boathud", "ping_unknown")
 	;
-	private static final ResourceLocation[] BAR_OFF = {BAR_1_UNLIT, BAR_2_UNLIT, BAR_3_UNLIT};
-	private static final ResourceLocation[] BAR_ON = {BAR_1_LIT, BAR_2_LIT, BAR_3_LIT};
+	private static final Identifier[] BAR_OFF = {BAR_1_UNLIT, BAR_2_UNLIT, BAR_3_UNLIT};
+	private static final Identifier[] BAR_ON = {BAR_1_LIT, BAR_2_LIT, BAR_3_LIT};
 }

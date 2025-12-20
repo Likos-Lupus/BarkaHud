@@ -1,7 +1,7 @@
 package hibi.boathud;
 
 import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.world.entity.vehicle.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.phys.Vec3;
 
 public class HudData {

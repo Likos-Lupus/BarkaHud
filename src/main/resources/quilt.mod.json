@@ -24,15 +24,15 @@
 		},
 		"depends": [
 			{
-				"id": "fabric"
+				"id": "fabric-api"
 			},
 			{
 				"id": "minecraft",
-				"versions": ">=1.21.6"
+				"versions": ">=1.21.11"
 			},
 			{
 				"id": "cloth-config2",
-				"versions": ">=16.0.0"
+				"versions": ">=21.0.0"
 			}
 		]
 	},
