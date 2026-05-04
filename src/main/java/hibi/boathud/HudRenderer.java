@@ -2,7 +2,7 @@ package hibi.boathud;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -26,7 +26,7 @@ public class HudRenderer {
 		this.client = client;
 	}
 
-	public void render(GuiGraphics graphics, DeltaTracker counter) {
+	public void render(GuiGraphicsExtractor graphics, DeltaTracker counter) {
 		this.scaledWidth = graphics.guiWidth();
 		this.scaledHeight = graphics.guiHeight();
 		int i = this.scaledWidth / 2;
@@ -59,7 +59,7 @@ public class HudRenderer {
 			this.typeCentered(graphics, String.format(Config.angleFormat, Common.hudData.driftAngle), i, this.scaledHeight - 76, 0xFFFFFFFF);
 			this.typeCentered(graphics, String.format(Config.gFormat, Common.hudData.g), i + 58, this.scaledHeight - 76, 0xFFFFFFFF);
 			// Second Row
-			graphics.drawString(this.client.font, Common.hudData.name, i + 88 - nameLen, this.scaledHeight - 65, 0xFFFFFFFF);
+			graphics.text(this.client.font, Common.hudData.name, i + 88 - nameLen, this.scaledHeight - 65, 0xFFFFFFFF);
 
 		} else { // Compact mode
 			// Overlay texture and bar
@@ -72,7 +72,7 @@ public class HudRenderer {
 	}
 
 	/** Renders the speed bar atop the HUD, uses displayedSpeed to, well, diisplay the speed. */
-	private void renderBar(GuiGraphics graphics, int x, int y) {
+	private void renderBar(GuiGraphicsExtractor graphics, int x, int y) {
 		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, BAR_OFF[Config.barType], x, y, 182, 5);
 		if(Common.hudData.speed < MIN_V[Config.barType]) return;
 		if(Common.hudData.speed > MAX_V[Config.barType]) {
@@ -84,7 +84,7 @@ public class HudRenderer {
 	}
 
 	/** Implementation is cloned from the notchian ping display in the tab player list.	 */
-	private void renderPing(GuiGraphics graphics, int x, int y) {
+	private void renderPing(GuiGraphicsExtractor graphics, int x, int y) {
 		Identifier bar = PING_5;
 		if(Common.hudData.ping < 0) {
 			bar = PING_UNKNOWN;
@@ -108,8 +108,8 @@ public class HudRenderer {
 	}
 
 	/** Renders a piece of text centered horizontally on an X coordinate. */
-	private void typeCentered(GuiGraphics graphics, String text, int centerX, int y, int color) {
-		graphics.drawString(this.client.font, text, centerX - this.client.font.width(text) / 2, y, color);
+	private void typeCentered(GuiGraphicsExtractor graphics, String text, int centerX, int y, int color) {
+		graphics.text(this.client.font, text, centerX - this.client.font.width(text) / 2, y, color);
 	}
 
 	private static final Identifier

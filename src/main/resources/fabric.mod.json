@@ -20,7 +20,7 @@
     "environment": "client",
     "entrypoints": {
         "client": [
-            "hibi.boathud.Common"
+            "hibi.boathud.Common::onInitializeClient"
         ],
         "modmenu": [
             "hibi.boathud.MenuInteg"
@@ -31,8 +31,8 @@
     ],
     "depends": {
         "fabric-api": "*",
-        "minecraft": ">=1.21.11",
-        "cloth-config2": ">=21.0.0"
+        "minecraft": ">=26.1",
+        "cloth-config2": ">=26.1.0"
     },
     "custom": {
         "modmenu": {
