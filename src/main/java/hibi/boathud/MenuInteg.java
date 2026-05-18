@@ -34,10 +34,10 @@ public class MenuInteg implements ModMenuApi {
 					.setEnumNameProvider(value -> Component.translatable("boathud.option.speed_format." + value.toString()))
 					.build())
 
-				.addEntry(entryBuilder.startEnumSelector(BAR_TYPE, BarType.class, BarType.values()[Config.barType])
-					.setDefaultValue(BarType.PACKED)
-					.setTooltip(TIP_BAR, TIP_BAR_PACKED, TIP_BAR_MIXED, TIP_BAR_BLUE)
-					.setSaveConsumer(newVal -> Config.barType = newVal.ordinal())
+				.addEntry(entryBuilder.startEnumSelector(BAR_TYPE, SpeedBar.class, Config.barType)
+					.setDefaultValue(SpeedBar.PACKED)
+					.setTooltip(TIP_BAR, TIP_BAR_PACKED, TIP_BAR_MIXED, TIP_BAR_BLUE, TIP_BAR_PROGRESSIVE)
+					.setSaveConsumer(newVal -> Config.barType = newVal)
 					.setEnumNameProvider(value -> Component.translatable("boathud.option.bar_type." + value.toString()))
 					.build())
 
@@ -65,10 +65,6 @@ public class MenuInteg implements ModMenuApi {
 			return builder.build();
 		};
 	}
-
-	public enum BarType {
-		PACKED, MIXED, BLUE
-	}
 	public enum SpeedFormat {
 		MS, KMPH, MPH, KT
 	}
@@ -90,5 +86,6 @@ public class MenuInteg implements ModMenuApi {
 		TIP_BAR = Component.translatable("boathud.tooltip.bar_type"),
 		TIP_BAR_PACKED = Component.translatable("boathud.tooltip.bar_type.packed"),
 		TIP_BAR_MIXED = Component.translatable("boathud.tooltip.bar_type.mixed"),
-		TIP_BAR_BLUE = Component.translatable("boathud.tooltip.bar_type.blue");
+		TIP_BAR_BLUE = Component.translatable("boathud.tooltip.bar_type.blue"),
+		TIP_BAR_PROGRESSIVE = Component.translatable("boathud.tooltip.bar_type.progressive");
 }

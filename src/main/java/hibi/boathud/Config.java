@@ -30,12 +30,13 @@ public class Config {
 	/** Speed unit, used for tracking. Should not be modified directly, use setUnit(). */
 	public static int configSpeedType = 1;
 
-	// The speed bar type is one of three values:
+	// The speed bar type is one of four values in the config file:
 	// 0: (Pack) Water and Packed Ice speeds (0 ~ 40 m/s)
 	// 1: (Mix) Packed and Blue Ice speeds (10 ~ 70 m/s)
 	// 2: (Blue) Blue Ice type speeds (40 ~ 70 m/s)
-	/** Setting a value that's not between 0 and 2 *will* cause an IndexOutOfBounds */
-	public static int barType = 0;
+	// 3: (Prog) All speeds, adapting to the category of speed (0 ~ 70 m/s)
+	/** The value in here is a member of the SpeedBar enum. The numbers described above are indexes into this enum. */
+	public static SpeedBar barType = SpeedBar.PACKED;
 
 	/** Enables speed-based camera control, akin to Boat Cam. */
 	public static boolean cameraControl = false;
@@ -56,6 +57,7 @@ public class Config {
 		if(!file.exists()) {
 			return;
 		}
+		int barIndex = 0;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			Properties prop = new Properties();
@@ -68,7 +70,7 @@ public class Config {
 				extended = Boolean.parseBoolean(val);
 			}
 			if(prop.get("barType") instanceof String val) {
-				barType = Integer.parseInt(val);
+				barIndex = Integer.parseInt(val);
 			}
 			if(prop.get("speedUnit") instanceof String val) {
 				setUnit(Integer.parseInt(val));
@@ -87,9 +89,10 @@ public class Config {
 			// Empty catch block
 		}
 		// Sanity check
-		if(barType > 2 || barType < 0) {
-			barType = 0;
+		if(barIndex > 3 || barIndex < 0) {
+			barIndex = 0;
 		}
+		barType = SpeedBar.values()[barIndex];
 		cameraAggressiveness = Mth.clamp(cameraAggressiveness, 0.2f, 3.5f);
 		cameraSmoothing = Mth.clamp(cameraSmoothing, 0f, 0.9f);
 	}
@@ -103,7 +106,7 @@ public class Config {
 			FileWriter writer = new FileWriter(file);
 			writer.write("enabled " + Boolean.toString(enabled) + "\n");
 			writer.write("extended " + Boolean.toString(extended) + "\n");
-			writer.write("barType " + Integer.toString(barType) + "\n");
+			writer.write("barType " + Integer.toString(barType.ordinal()) + "\n");
 			writer.write("speedUnit " + Integer.toString(configSpeedType) + "\n");
 			writer.write("cameraControl " + Boolean.toString(cameraControl) + "\n");
 			writer.write("cameraAggressiveness " + Float.toString(cameraAggressiveness) + "\n");

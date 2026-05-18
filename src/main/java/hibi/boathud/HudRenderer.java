@@ -13,12 +13,6 @@ public class HudRenderer {
 	private int scaledWidth;
 	private int scaledHeight;
 
-	// The index to be used in these scales is the bar type (stored internally as an integer, defined in Config)
-	//                                        Pack     Mixed      Blue
-	private static final double[] MIN_V =   {   0d,       8d,      40d}; // Minimum display speed (m/s)
-	private static final double[] MAX_V =   {  40d,      70d,      70d}; // Maximum display speed (m/s)
-	private static final double[] SCALE_V = {4.55d, 182d/62d, 182d/30d}; // Pixels for 1 unit of speed (px*s/m) (BarWidth / (VMax - VMin))
-
 	// Used for lerping
 	private double displayedSpeed = 0.0d;
 
@@ -73,14 +67,15 @@ public class HudRenderer {
 
 	/** Renders the speed bar atop the HUD, uses displayedSpeed to, well, diisplay the speed. */
 	private void renderBar(GuiGraphicsExtractor graphics, int x, int y) {
-		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, BAR_OFF[Config.barType], x, y, 182, 5);
-		if(Common.hudData.speed < MIN_V[Config.barType]) return;
-		if(Common.hudData.speed > MAX_V[Config.barType]) {
+		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Config.barType.unlitBar, x, y, 182, 5);
+		int progress = Config.barType.getProgress(this.displayedSpeed);
+		if (progress == 0) return;
+		if (progress == -1) {
 			if(this.client.level.getGameTime() % 2 == 0) return;
-			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, BAR_ON[Config.barType], x, y, 182, 5);
+			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Config.barType.litBar, x, y, 182, 5);
 			return;
 		}
-		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, BAR_ON[Config.barType], 182, 5, 0, 0, x, y, (int)((this.displayedSpeed - MIN_V[Config.barType]) * SCALE_V[Config.barType]), 5);
+		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Config.barType.litBar, 182, 5, 0, 0, x, y, progress, 5);
 	}
 
 	/** Implementation is cloned from the notchian ping display in the tab player list.	 */
@@ -123,12 +118,6 @@ public class HudRenderer {
 		FORWARD_LIT = Identifier.fromNamespaceAndPath("boathud", "forward_lit"),
 		BACKWARD_UNLIT = Identifier.fromNamespaceAndPath("boathud", "backward_unlit"),
 		BACKWARD_LIT = Identifier.fromNamespaceAndPath("boathud", "backward_lit"),
-		BAR_1_UNLIT = Identifier.fromNamespaceAndPath("boathud", "bar_1_unlit"),
-		BAR_1_LIT = Identifier.fromNamespaceAndPath("boathud", "bar_1_lit"),
-		BAR_2_UNLIT = Identifier.fromNamespaceAndPath("boathud", "bar_2_unlit"),
-		BAR_2_LIT = Identifier.fromNamespaceAndPath("boathud", "bar_2_lit"),
-		BAR_3_UNLIT = Identifier.fromNamespaceAndPath("boathud", "bar_3_unlit"),
-		BAR_3_LIT = Identifier.fromNamespaceAndPath("boathud", "bar_3_lit"),
 		PING_5 = Identifier.fromNamespaceAndPath("boathud", "ping_5"),
 		PING_4 = Identifier.fromNamespaceAndPath("boathud", "ping_4"),
 		PING_3 = Identifier.fromNamespaceAndPath("boathud", "ping_3"),
@@ -136,6 +125,4 @@ public class HudRenderer {
 		PING_1 = Identifier.fromNamespaceAndPath("boathud", "ping_1"),
 		PING_UNKNOWN = Identifier.fromNamespaceAndPath("boathud", "ping_unknown")
 	;
-	private static final Identifier[] BAR_OFF = {BAR_1_UNLIT, BAR_2_UNLIT, BAR_3_UNLIT};
-	private static final Identifier[] BAR_ON = {BAR_1_LIT, BAR_2_LIT, BAR_3_LIT};
 }
