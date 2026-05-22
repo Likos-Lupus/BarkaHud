@@ -5,15 +5,16 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 
 public class CameraController {
 
     private static final double MIN_SPEED_MT = 0.01;
 
     public static void tick(
-            AbstractBoat boat,
-            LocalPlayer player,
-            CameraSettings settings
+            @NonNull AbstractBoat boat,
+            @NonNull LocalPlayer player,
+            @NonNull CameraSettings settings
     ) {
         if (!settings.enabled) return;
         if (boat.getControllingPassenger() != player) return;

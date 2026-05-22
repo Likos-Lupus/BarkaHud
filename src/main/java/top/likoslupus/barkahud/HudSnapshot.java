@@ -1,7 +1,9 @@
 package top.likoslupus.barkahud;
 
+import org.jspecify.annotations.NonNull;
+
 public record HudSnapshot(
-        String playerName,
+        @NonNull String playerName,
         double speedMS,
         double driftAngle,
         double gForce,

@@ -14,8 +14,8 @@ public class BarkaHudConfig {
                     .serializer(config -> GsonConfigSerializerBuilder.create(config)
                             .setPath(FabricLoader.getInstance().getConfigDir().resolve("barkahud.json5"))
                             .setJson5(true)
-                            .build())
-                    .build();
+                            .build()
+                    ).build();
 
     @SerialEntry
     public int schemaVersion = 1;

@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.likoslupus.barkahud.HudController;
 import top.likoslupus.barkahud.config.ConfigManager;
+import top.likoslupus.barkahud.platform.HudDrawContextImpl;
 
 @Mixin(Gui.class)
 public class InGameHudMixin {
@@ -23,8 +24,13 @@ public class InGameHudMixin {
         var client = Minecraft.getInstance();
         var controller = HudController.getInstance();
         var snapshot = controller.getSnapshot();
+
         if (ConfigManager.get().hudEnabled && snapshot.isRiding() && !(client.screen instanceof ChatScreen)) {
-            controller.getRenderer().render(graphics, counter, snapshot, ConfigManager.get());
+            var context = new HudDrawContextImpl(
+                    graphics, counter,
+                    client.font, client.level.getGameTime()
+            );
+            controller.getRenderer().render(context, snapshot, ConfigManager.get());
         }
     }
 

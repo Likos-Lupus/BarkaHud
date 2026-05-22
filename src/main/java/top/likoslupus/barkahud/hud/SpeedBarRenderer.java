@@ -1,9 +1,9 @@
 package top.likoslupus.barkahud.hud;
 
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
+import org.jspecify.annotations.NonNull;
 import top.likoslupus.barkahud.SpeedBar;
 import top.likoslupus.barkahud.config.SpeedBarProfile;
+import top.likoslupus.barkahud.platform.IHudDrawContext;
 
 public final class SpeedBarRenderer {
 
@@ -11,16 +11,15 @@ public final class SpeedBarRenderer {
     }
 
     public static void render(
-            GuiGraphicsExtractor graphics,
+            @NonNull IHudDrawContext context,
             int x,
             int y,
             double displayedSpeed,
-            SpeedBarProfile profile,
+            @NonNull SpeedBarProfile profile,
             long gameTime
     ) {
         var bar = SpeedBar.values()[profile.ordinal()];
-        graphics.blitSprite(
-                RenderPipelines.GUI_TEXTURED,
+        context.drawSprite(
                 bar.unlitBar,
                 x,
                 y,
@@ -32,8 +31,7 @@ public final class SpeedBarRenderer {
         if (progress == 0) return;
         if (progress == -1) {
             if (gameTime % 2 == 0) return;
-            graphics.blitSprite(
-                    RenderPipelines.GUI_TEXTURED,
+            context.drawSprite(
                     bar.litBar,
                     x,
                     y,
@@ -43,8 +41,7 @@ public final class SpeedBarRenderer {
             return;
         }
 
-        graphics.blitSprite(
-                RenderPipelines.GUI_TEXTURED,
+        context.drawSpriteRegion(
                 bar.litBar,
                 HudLayout.BAR_WIDTH,
                 HudLayout.BAR_HEIGHT,

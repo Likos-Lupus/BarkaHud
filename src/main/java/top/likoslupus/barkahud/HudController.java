@@ -5,6 +5,7 @@ import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 
 public class HudController {
 
@@ -18,9 +19,9 @@ public class HudController {
     private double oldSpeed;
     private boolean firstFrame = true;
 
-    public HudController(Minecraft client) {
+    public HudController(@NonNull Minecraft client) {
         this.client = client;
-        this.hudRenderer = new HudRenderer(client);
+        this.hudRenderer = new HudRenderer();
         instance = this;
     }
 
@@ -92,7 +93,10 @@ public class HudController {
         firstFrame = true;
     }
 
-    static double calculateDriftAngle(Vec3 horizontalVelocity, Vec3 horizontalLook) {
+    static double calculateDriftAngle(
+            @NonNull Vec3 horizontalVelocity,
+            @NonNull Vec3 horizontalLook
+    ) {
         double vLen = horizontalVelocity.length();
         if (vLen == 0) return 0;
 

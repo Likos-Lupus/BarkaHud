@@ -1,6 +1,7 @@
 package top.likoslupus.barkahud.config;
 
 import net.fabricmc.loader.api.FabricLoader;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +41,7 @@ public class ConfigManager {
         replace(defaults);
     }
 
-    static void replace(BarkaHudConfig config) {
+    static void replace(@NonNull BarkaHudConfig config) {
         instance = config;
         BarkaHudConfig.HANDLER.save();
         LOGGER.info("Replaced config with provided instance");

@@ -15,7 +15,7 @@ val depsJdk = (property("deps.jdk") as String).toInt()
 base {
     archivesName = archives_base_name
 }
-version = mod_version
+version = "$mod_version+mc${sc.current.version}"
 group = maven_group
 
 repositories {
@@ -31,9 +31,11 @@ dependencies {
     implementation("com.terraformersmc:modmenu:$depsModmenu")
     implementation("dev.isxander:yet-another-config-lib:$depsYacl")
 
-    testImplementation(platform("org.junit:junit-bom:6.1.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation(libs.jspecify)
+
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 tasks.test {

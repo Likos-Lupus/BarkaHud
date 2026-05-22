@@ -1,6 +1,7 @@
 package top.likoslupus.barkahud.hud;
 
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public final class HudAssets {
 
@@ -24,7 +25,7 @@ public final class HudAssets {
     private HudAssets() {
     }
 
-    private static Identifier id(String path) {
+    private static Identifier id(@NonNull String path) {
         return Identifier.fromNamespaceAndPath("barkahud", path);
     }
 

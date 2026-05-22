@@ -15,9 +15,17 @@
   "barkahud.option.bar_type.PACKED": "水与浮冰",
   "barkahud.option.bar_type.MIXED": "混合冰",
   "barkahud.option.bar_type.BLUE": "蓝冰",
+  "barkahud.option.bar_type.PROGRESSIVE": "渐进",
+  "barkahud.option.camera_control": "启用视角跟随",
+  "barkahud.option.camera_aggressiveness": "视角跟随强度",
+  "barkahud.option.camera_smoothing": "视角跟随平滑度",
   "barkahud.tooltip.extended": "启用加速度计和输入显示",
   "barkahud.tooltip.bar_type": "改变速度条的显示和行为：",
   "barkahud.tooltip.bar_type.packed": "水与浮冰：最适合低速行驶。",
   "barkahud.tooltip.bar_type.mixed": "混合：最适合在任何类型的冰上行驶。",
-  "barkahud.tooltip.bar_type.blue": "蓝冰：主要适用于蓝冰竞速。"
+  "barkahud.tooltip.bar_type.blue": "蓝冰：主要适用于蓝冰竞速。",
+  "barkahud.tooltip.bar_type.progressive": "渐进：根据速度自动调整范围。",
+  "barkahud.tooltip.camera_control": "玩家会自动看向船正在行驶的方向。",
+  "barkahud.tooltip.camera_aggressiveness": "玩家开始完全忽略船只朝向的速度（m/s，越低越激进）。",
+  "barkahud.tooltip.camera_smoothing": "控制玩家视角转向跟随速度变化的速度。"
 }

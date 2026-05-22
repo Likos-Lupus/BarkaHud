@@ -1,5 +1,7 @@
 package top.likoslupus.barkahud.config;
 
+import org.jspecify.annotations.NonNull;
+
 public enum SpeedBarProfile {
 
     PACKED(0, 40, 4.55, "barkahud.option.bar_type.PACKED"),
@@ -22,7 +24,12 @@ public enum SpeedBarProfile {
     public final double scaleV;
     public final String translationKey;
 
-    SpeedBarProfile(double minV, double maxV, double scaleV, String translationKey) {
+    SpeedBarProfile(
+            double minV,
+            double maxV,
+            double scaleV,
+            @NonNull String translationKey
+    ) {
         this.minV = minV;
         this.maxV = maxV;
         this.scaleV = scaleV;

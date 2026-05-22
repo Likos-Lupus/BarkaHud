@@ -1,12 +1,38 @@
 package top.likoslupus.barkahud;
 
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public enum SpeedBar {
-    PACKED(0, 40, 4.55, Identifier.fromNamespaceAndPath("barkahud", "bar_1_lit"), Identifier.fromNamespaceAndPath("barkahud", "bar_1_unlit")),
-    MIXED(8, 70, 182d / 62d, Identifier.fromNamespaceAndPath("barkahud", "bar_2_lit"), Identifier.fromNamespaceAndPath("barkahud", "bar_2_unlit")),
-    BLUE(40, 70, 182d / 30d, Identifier.fromNamespaceAndPath("barkahud", "bar_3_lit"), Identifier.fromNamespaceAndPath("barkahud", "bar_3_unlit")),
-    PROGRESSIVE(0, 70, 0, Identifier.fromNamespaceAndPath("barkahud", "bar_4_lit"), Identifier.fromNamespaceAndPath("barkahud", "bar_4_unlit")) {
+
+    PACKED(
+            0,
+            40,
+            4.55,
+            Identifier.fromNamespaceAndPath("barkahud", "bar_1_lit"),
+            Identifier.fromNamespaceAndPath("barkahud", "bar_1_unlit")
+    ),
+    MIXED(
+            8,
+            70,
+            182d / 62d,
+            Identifier.fromNamespaceAndPath("barkahud", "bar_2_lit"),
+            Identifier.fromNamespaceAndPath("barkahud", "bar_2_unlit")
+    ),
+    BLUE(
+            40,
+            70,
+            182d / 30d,
+            Identifier.fromNamespaceAndPath("barkahud", "bar_3_lit"),
+            Identifier.fromNamespaceAndPath("barkahud", "bar_3_unlit")
+    ),
+    PROGRESSIVE(
+            0,
+            70,
+            0,
+            Identifier.fromNamespaceAndPath("barkahud", "bar_4_lit"),
+            Identifier.fromNamespaceAndPath("barkahud", "bar_4_unlit")
+    ) {
         @Override
         public int getProgress(double displayedSpeed) {
             if (displayedSpeed < this.minV) return 0;
@@ -20,7 +46,13 @@ public enum SpeedBar {
     public final double minV, maxV, scaleV;
     public final Identifier litBar, unlitBar;
 
-    SpeedBar(double minV, double maxV, double scaleV, Identifier litBar, Identifier unlitBar) {
+    SpeedBar(
+            double minV,
+            double maxV,
+            double scaleV,
+            @NonNull Identifier litBar,
+            @NonNull Identifier unlitBar
+    ) {
         this.minV = minV;
         this.maxV = maxV;
         this.scaleV = scaleV;
@@ -33,4 +65,5 @@ public enum SpeedBar {
         if (displayedSpeed > this.maxV) return -1;
         return (int) ((displayedSpeed - this.minV) * this.scaleV);
     }
+
 }
