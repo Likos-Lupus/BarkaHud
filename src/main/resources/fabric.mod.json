@@ -18,7 +18,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "top.likoslupus.barkahud.Common::onInitializeClient"
+      "top.likoslupus.barkahud.BarkaHudClient"
     ],
     "modmenu": [
       "top.likoslupus.barkahud.compat.modmenu.ModMenuIntegration"
