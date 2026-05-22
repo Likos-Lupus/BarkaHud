@@ -3,10 +3,14 @@ package top.likoslupus.barkahud;
 public record HudSnapshot(
         String playerName,
         double speedMS,
-        double gForce,
         double driftAngle,
+        double gForce,
         int ping,
-        boolean isDriver
+        boolean isDriver,
+        boolean keyLeft,
+        boolean keyRight,
+        boolean keyForward,
+        boolean keyBackward
 ) {
 
     public static final HudSnapshot EMPTY = new HudSnapshot(
@@ -15,6 +19,10 @@ public record HudSnapshot(
             0,
             0,
             -1,
+            false,
+            false,
+            false,
+            false,
             false
     );
 

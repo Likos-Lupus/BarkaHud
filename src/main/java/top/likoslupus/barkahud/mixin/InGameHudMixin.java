@@ -24,7 +24,7 @@ public class InGameHudMixin {
         var controller = HudController.getInstance();
         var snapshot = controller.getSnapshot();
         if (ConfigManager.get().hudEnabled && snapshot.isRiding() && !(client.screen instanceof ChatScreen)) {
-            controller.getRenderer().render(graphics, counter, snapshot);
+            controller.getRenderer().render(graphics, counter, snapshot, ConfigManager.get());
         }
     }
 

@@ -2,10 +2,13 @@ package top.likoslupus.barkahud;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.phys.Vec3;
 
 public class HudController {
+
+    private static final double TPS_DIV_G = 20.0 / 9.80665;
 
     private static HudController instance;
 
@@ -13,6 +16,7 @@ public class HudController {
     private final HudRenderer hudRenderer;
     private HudSnapshot currentSnapshot = HudSnapshot.EMPTY;
     private double oldSpeed;
+    private boolean firstFrame = true;
 
     public HudController(Minecraft client) {
         this.client = client;
@@ -35,32 +39,30 @@ public class HudController {
     public void tick() {
         var player = client.player;
         if (player == null) {
-            currentSnapshot = HudSnapshot.EMPTY;
-            oldSpeed = 0;
+            setEmpty();
             return;
         }
 
         var vehicle = player.getVehicle();
         if (!(vehicle instanceof AbstractBoat boat)) {
-            currentSnapshot = HudSnapshot.EMPTY;
-            oldSpeed = 0;
+            setEmpty();
             return;
         }
 
         if (boat.getFirstPassenger() != player) {
-            currentSnapshot = HudSnapshot.EMPTY;
-            oldSpeed = 0;
+            setEmpty();
             return;
         }
 
-        Vec3 velocity = boat.getDeltaMovement().multiply(1, 0, 1);
-        double speed = velocity.length() * 20;
+        Vec3 velocityH = boat.getDeltaMovement().multiply(1, 0, 1);
+        Vec3 lookH = boat.getLookAngle().multiply(1, 0, 1);
 
-        double driftAngle = Math.toDegrees(Math.acos(velocity.dot(boat.getLookAngle()
-                .normalize()) / velocity.length()));
-        if (Double.isNaN(driftAngle)) driftAngle = 0;
+        double speed = velocityH.length() * 20;
 
-        double gForce = (speed - oldSpeed) * 2.040816327;
+        double driftAngle = calculateDriftAngle(velocityH, lookH);
+
+        double gForce = firstFrame ? 0 : (speed - oldSpeed) * TPS_DIV_G;
+        firstFrame = false;
         oldSpeed = speed;
 
         var connection = client.getConnection();
@@ -69,14 +71,38 @@ public class HudController {
 
         boolean isDriver = boat.getControllingPassenger() == player;
 
+        var options = client.options;
         currentSnapshot = new HudSnapshot(
                 player.getName().getString(),
                 speed,
-                gForce,
                 driftAngle,
+                gForce,
                 ping,
-                isDriver
+                isDriver,
+                options.keyLeft.isDown(),
+                options.keyRight.isDown(),
+                options.keyUp.isDown(),
+                options.keyDown.isDown()
         );
+    }
+
+    private void setEmpty() {
+        currentSnapshot = HudSnapshot.EMPTY;
+        oldSpeed = 0;
+        firstFrame = true;
+    }
+
+    static double calculateDriftAngle(Vec3 horizontalVelocity, Vec3 horizontalLook) {
+        double vLen = horizontalVelocity.length();
+        if (vLen == 0) return 0;
+
+        double lLen = horizontalLook.length();
+        if (lLen == 0) return 0;
+
+        double dot = horizontalVelocity.dot(horizontalLook);
+        double cos = Mth.clamp(dot / (vLen * lLen), -1, 1);
+
+        return Math.toDegrees(Math.acos(cos));
     }
 
 }
