@@ -18,19 +18,17 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "top.likoslupus.barkahud.Common::onInitializeClient"
+      "top.likoslupus.barkahud.BarkaHudClient"
     ],
     "modmenu": [
-      "top.likoslupus.barkahud.MenuInteg"
+      "top.likoslupus.barkahud.compat.modmenu.ModMenuIntegration"
     ]
   },
-  "mixins": [
-    "barkahud.mixins.json"
-  ],
   "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "minecraft": "${minecraft_version_range}",
     "fabric-api": "*",
-    "minecraft": ">=26.1",
-    "cloth-config2": ">=26.1.0"
+    "yet_another_config_lib_v3": ">=${yacl_version_base}"
   },
   "custom": {
     "modmenu": {
