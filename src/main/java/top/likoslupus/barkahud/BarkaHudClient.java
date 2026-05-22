@@ -22,9 +22,9 @@ public class BarkaHudClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(c -> {
             if (c.player == null) return;
-            if (!ConfigManager.get().cameraEnabled) return;
-            if (c.player.getVehicle() instanceof AbstractBoat boat && boat.getControllingPassenger() == c.player) {
-                CameraHandler.tick(boat, c.player);
+            var settings = CameraSettings.from(ConfigManager.get());
+            if (c.player.getVehicle() instanceof AbstractBoat boat) {
+                CameraController.tick(boat, c.player, settings);
             }
         });
     }
