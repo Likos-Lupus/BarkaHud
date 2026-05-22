@@ -1,10 +1,17 @@
 plugins {
-    alias(libs.plugins.fabric.loom)
+    id("net.fabricmc.fabric-loom") // version declared in settings.gradle.kts
 }
 
 val mod_version: String by project
 val maven_group: String by project
 val archives_base_name: String by project
+
+val depsFabricLoader = property("deps.fabric_loader") as String
+val depsFabricApi = property("deps.fabric_api") as String
+val depsModmenu = property("deps.modmenu") as String
+val depsYacl = property("deps.yacl") as String
+val depsCloth = property("deps.cloth") as String
+val depsJdk = (property("deps.jdk") as String).toInt()
 
 base {
     archivesName = archives_base_name
@@ -13,43 +20,49 @@ version = mod_version
 group = maven_group
 
 repositories {
-    maven {
-        url = uri("https://maven.terraformersmc.com/releases/")
-    }
-    maven {
-        url = uri("https://maven.shedaniel.me/")
-    }
+    maven("https://maven.terraformersmc.com/releases/") { name = "TerraformersMC" }
+    maven("https://maven.isxander.dev/releases") { name = "Xander Maven" }
+    maven("https://maven.shedaniel.me/") { name = "Shedaniel (transitional, remove in Phase 2)" }
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
+    minecraft("com.mojang:minecraft:${sc.current.version}")
 
-    implementation(libs.fabric.loader)
-    implementation(libs.fabric.api)
-    implementation(libs.modmenu)
+    implementation("net.fabricmc:fabric-loader:$depsFabricLoader")
+    implementation("net.fabricmc.fabric-api:fabric-api:$depsFabricApi")
+    implementation("com.terraformersmc:modmenu:$depsModmenu")
+    implementation("dev.isxander:yet-another-config-lib:$depsYacl")
 
-    // to be replace by yacl
-    api(libs.cloth.config) {
+    implementation("me.shedaniel.cloth:cloth-config-fabric:$depsCloth") {
         exclude(group = "net.fabricmc.fabric-api")
     }
 }
 
 tasks.processResources {
-    inputs.property("version", project.version)
+    val deps = mapOf(
+        "version" to project.version,
+        "minecraft_version" to sc.current.version,
+        "minecraft_version_range" to ">=${sc.current.version}",
+        "fabric_loader_version" to depsFabricLoader,
+        "fabric_api_version" to depsFabricApi,
+        "yacl_version" to depsYacl,
+        "yacl_version_base" to depsYacl.substringBefore("+")
+    )
+
+    inputs.properties(deps)
+
     filesMatching("*.mod.json") {
-        expand("version" to project.version)
+        expand(deps)
     }
 }
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
-    options.release = 25
+    options.release = depsJdk
 }
 
 java {
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
 }
 
 tasks.jar {
