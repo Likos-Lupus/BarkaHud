@@ -23,7 +23,7 @@ public final class CameraMath {
         float lerpProg = Math.clamp((float) speedMT / aggressivenessMetersPerTick, 0f, 1f);
         float targetYaw = rotLerp(lerpProg, boatYaw, velocityAngle);
 
-        return rotLerp(smoothing, targetYaw, playerYaw);
+        return rotLerp(smoothing, playerYaw, targetYaw);
     }
 
     private static float rotLerp(

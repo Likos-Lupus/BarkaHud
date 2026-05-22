@@ -17,6 +17,57 @@ class SpeedBarProfileTest {
         }
     }
 
+    @Test
+    void allProfiles_spritesNotNull() {
+        for (var profile : SpeedBarProfile.values()) {
+            assertNotNull(profile.litBar);
+            assertNotNull(profile.unlitBar);
+        }
+    }
+
+    @Nested
+    class AllProfiles {
+
+        @Test
+        void progress_scalesWithBarWidth() {
+            int[] barWidths = {91, 182, 364};
+            for (var profile : SpeedBarProfile.values()) {
+                for (int speed = (int) profile.minV; speed <= (int) profile.maxV; speed++) {
+                    int base = profile.getProgress(speed, BAR_WIDTH);
+                    for (int barWidth : barWidths) {
+                        int progress = profile.getProgress(speed, barWidth);
+                        int expected = (int) Math.round(base * (barWidth / (double) BAR_WIDTH));
+                        String msg = "Profile " + profile + " speed=" + speed
+                                + " barWidth=" + barWidth + " progress=" + progress
+                                + " expected~" + expected;
+                        assertTrue(
+                                Math.abs(progress - expected) <= 1,
+                                msg);
+                    }
+                }
+            }
+        }
+
+        @Test
+        void progress_withinBoundsForAllBarWidths() {
+            int[] barWidths = {91, 182, 364};
+            for (var profile : SpeedBarProfile.values()) {
+                for (int speed = (int) profile.minV; speed <= (int) profile.maxV; speed++) {
+                    for (int barWidth : barWidths) {
+                        int progress = profile.getProgress(speed, barWidth);
+                        String msg = "Profile " + profile + " speed=" + speed
+                                + " barWidth=" + barWidth
+                                + " progress out of range: " + progress;
+                        assertTrue(
+                                0 <= progress && progress <= barWidth,
+                                msg);
+                    }
+                }
+            }
+        }
+
+    }
+
     @Nested
     class Packed {
 

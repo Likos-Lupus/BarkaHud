@@ -4,6 +4,10 @@ import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Configuration access and persistence. All methods are expected to be called exclusively from the client/render
+ * thread.
+ */
 public class ConfigManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigManager.class);
@@ -56,4 +60,5 @@ public class ConfigManager {
         BarkaHudConfig.HANDLER.save();
         LOGGER.info("Replaced config with provided instance");
     }
+
 }

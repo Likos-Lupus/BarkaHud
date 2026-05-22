@@ -1,7 +1,6 @@
 package top.likoslupus.barkahud.hud;
 
 import org.jspecify.annotations.NonNull;
-import top.likoslupus.barkahud.SpeedBar;
 import top.likoslupus.barkahud.config.SpeedBarProfile;
 import top.likoslupus.barkahud.platform.IHudDrawContext;
 
@@ -18,9 +17,8 @@ public final class SpeedBarRenderer {
             @NonNull SpeedBarProfile profile,
             long gameTime
     ) {
-        var bar = SpeedBar.values()[profile.ordinal()];
         context.drawSprite(
-                bar.unlitBar,
+                profile.unlitBar,
                 x,
                 y,
                 HudLayout.BAR_WIDTH,
@@ -32,7 +30,7 @@ public final class SpeedBarRenderer {
         if (progress == -1) {
             if (gameTime % 2 == 0) return;
             context.drawSprite(
-                    bar.litBar,
+                    profile.litBar,
                     x,
                     y,
                     HudLayout.BAR_WIDTH,
@@ -42,7 +40,7 @@ public final class SpeedBarRenderer {
         }
 
         context.drawSpriteRegion(
-                bar.litBar,
+                profile.litBar,
                 HudLayout.BAR_WIDTH,
                 HudLayout.BAR_HEIGHT,
                 0,
