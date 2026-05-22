@@ -2,15 +2,15 @@ plugins {
     alias(libs.plugins.fabric.loom)
 }
 
-val modVersion: String by project
-val mavenGroup: String by project
-val archivesBaseName: String by project
+val mod_version: String by project
+val maven_group: String by project
+val archives_base_name: String by project
 
 base {
-    archivesName = archivesBaseName
+    archivesName = archives_base_name
 }
-version = modVersion
-group = mavenGroup
+version = mod_version
+group = maven_group
 
 repositories {
     maven {
@@ -54,6 +54,6 @@ java {
 
 tasks.jar {
     from("LICENSE") {
-        rename { "${it}_$archivesBaseName" }
+        rename { "${it}_$archives_base_name" }
     }
 }

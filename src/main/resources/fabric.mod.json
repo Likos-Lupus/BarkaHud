@@ -1,46 +1,44 @@
 {
-    "schemaVersion": 1,
-    "id": "boathud",
-    "version": "${version}",
-
-    "name": "BoatHud",
-    "description": "This mod adds a racing style HUD, configurable, for riding a boat, and is designed mostly for racing boats on ice.",
-    "authors": [
-        "hibi"
+  "schemaVersion": 1,
+  "id": "barkahud",
+  "version": "${version}",
+  "name": "BarkaHud",
+  "description": "This mod adds a racing style HUD, configurable, for riding a boat, and is designed mostly for racing boats on ice.",
+  "authors": [
+    "Chiloven945",
+    "Likos-Lupus",
+    "hibi"
+  ],
+  "contact": {
+    "sources": "https://github.com/Likos-Lupus/BarkaHud",
+    "issues": "https://github.com/Likos-Lupus/BarkaHud/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/barkahud/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "top.likoslupus.barkahud.Common::onInitializeClient"
     ],
-    "contact": {
-        "homepage": "https://hibiscus.pet/mods/boathud",
-        "sources": "https://github.com/Hibiii/BoatHud",
-        "issues": "https://github.com/Hibiii/BoatHud/issues"
-    },
-
-    "license": "Unlicense",
-    "icon": "assets/boathud/icon.png",
-
-    "environment": "client",
-    "entrypoints": {
-        "client": [
-            "hibi.boathud.Common::onInitializeClient"
-        ],
-        "modmenu": [
-            "hibi.boathud.MenuInteg"
-        ]
-    },
-    "mixins": [
-        "boathud.mixins.json"
-    ],
-    "depends": {
-        "fabric-api": "*",
-        "minecraft": ">=26.1",
-        "cloth-config2": ">=26.1.0"
-    },
-    "custom": {
-        "modmenu": {
-            "links": {
-                "modmenu.github_releases": "https://github.com/Hibiii/BoatHud/releases",
-                "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/boathud",
-                "modmenu.modrinth": "https://modrinth.com/mod/boathud/"
-            }
-        }
+    "modmenu": [
+      "top.likoslupus.barkahud.MenuInteg"
+    ]
+  },
+  "mixins": [
+    "barkahud.mixins.json"
+  ],
+  "depends": {
+    "fabric-api": "*",
+    "minecraft": ">=26.1",
+    "cloth-config2": ">=26.1.0"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.github_releases": "https://github.com/Likos-Lupus/BarkaHud/releases",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/barkahud",
+        "modmenu.modrinth": "https://modrinth.com/mod/barkahud/"
+      }
     }
+  }
 }
