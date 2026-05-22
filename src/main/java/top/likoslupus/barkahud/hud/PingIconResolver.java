@@ -1,13 +1,13 @@
 package top.likoslupus.barkahud.hud;
 
-import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public final class PingIconResolver {
 
     private PingIconResolver() {
     }
 
-    public static Identifier resolve(int ping) {
+    public static @NonNull HudSprite resolve(int ping) {
         if (ping < 0) return HudAssets.PING_UNKNOWN;
         if (ping < 150) return HudAssets.PING_5;
         if (ping < 300) return HudAssets.PING_4;

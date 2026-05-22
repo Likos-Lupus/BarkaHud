@@ -4,13 +4,13 @@ import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resources.Identifier;
+import top.likoslupus.barkahud.platform.impl.McId;
 
 public class BarkaHudConfig {
 
     public static final ConfigClassHandler<BarkaHudConfig> HANDLER =
             ConfigClassHandler.createBuilder(BarkaHudConfig.class)
-                    .id(Identifier.fromNamespaceAndPath("barkahud", "config"))
+                    .id(McId.id("barkahud", "config"))
                     .serializer(config -> GsonConfigSerializerBuilder.create(config)
                             .setPath(FabricLoader.getInstance().getConfigDir().resolve("barkahud.json5"))
                             .setJson5(true)

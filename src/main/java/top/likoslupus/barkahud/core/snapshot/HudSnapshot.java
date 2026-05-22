@@ -1,4 +1,4 @@
-package top.likoslupus.barkahud;
+package top.likoslupus.barkahud.core.snapshot;
 
 import org.jspecify.annotations.NonNull;
 
@@ -30,6 +30,21 @@ public record HudSnapshot(
 
     public boolean isRiding() {
         return this != EMPTY;
+    }
+
+    public @NonNull HudSnapshot withGForce(double newGForce) {
+        return new HudSnapshot(
+                playerName,
+                speedMS,
+                driftAngle,
+                newGForce,
+                ping,
+                isDriver,
+                keyLeft,
+                keyRight,
+                keyForward,
+                keyBackward
+        );
     }
 
 }

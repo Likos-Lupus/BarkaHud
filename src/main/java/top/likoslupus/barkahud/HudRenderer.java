@@ -3,6 +3,7 @@ package top.likoslupus.barkahud;
 import net.minecraft.util.Mth;
 import org.jspecify.annotations.NonNull;
 import top.likoslupus.barkahud.config.BarkaHudConfig;
+import top.likoslupus.barkahud.core.snapshot.HudSnapshot;
 import top.likoslupus.barkahud.hud.HudAssets;
 import top.likoslupus.barkahud.hud.HudLayout;
 import top.likoslupus.barkahud.hud.PingIconResolver;

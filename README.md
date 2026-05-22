@@ -17,24 +17,20 @@ Shows speed, drift angle, acceleration, and ping — with configurable units and
 
 ## Dependencies
 
-| Dependency    | Required | Note          |
-|---------------|----------|---------------|
-| Fabric Loader | Yes      |               |
-| Fabric API    | Yes      |               |
-| [YACL]        | Yes      | Configuration |
+| Dependency    | Required | Note                  |
+|---------------|----------|-----------------------|
+| Fabric Loader | Yes      |                       |
+| Fabric API    | Yes      |                       |
+| [YACL]        | Yes      | Configuration         |
 | [ModMenu]     | Optional | In-game config screen |
 
 ## Supported Minecraft Versions
 
-Currently targeting Fabric for Minecraft 26.1.
-
-Multi-version support (1.21.x) is planned via the Stonecutter build system.
+Currently targeting Fabric for Minecraft 26.1, 1.21.11, and 1.21.1 (via Stonecutter multi-version builds).
 
 ## Configuration
 
 Config is stored in `config/barkahud.json5` (JSON5 format).
-
-If you previously used `barkahud.properties`, your settings will be migrated automatically on first launch.
 
 ## Building
 
@@ -49,4 +45,5 @@ Output jar is in `versions/<mc-version>/build/libs/`.
 MIT — see [LICENSE](LICENSE).
 
 [YACL]: https://modrinth.com/mod/yacl
+
 [ModMenu]: https://modrinth.com/mod/modmenu

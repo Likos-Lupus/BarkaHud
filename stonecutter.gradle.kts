@@ -2,4 +2,10 @@ plugins {
     id("dev.kikugie.stonecutter")
 }
 
-stonecutter active "26.1"
+stonecutter active "1.21.11"
+
+stonecutter {
+    handlers {
+        inherit("java", "json")
+    }
+}

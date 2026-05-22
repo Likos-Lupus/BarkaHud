@@ -1,7 +1,7 @@
 package top.likoslupus.barkahud.platform;
 
-import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NonNull;
+import top.likoslupus.barkahud.hud.HudSprite;
 
 public interface IHudDrawContext {
 
@@ -16,7 +16,7 @@ public interface IHudDrawContext {
     int textWidth(@NonNull String text);
 
     void drawSprite(
-            @NonNull Identifier sprite,
+            @NonNull HudSprite sprite,
             int x,
             int y,
             int w,
@@ -24,7 +24,7 @@ public interface IHudDrawContext {
     );
 
     void drawSpriteRegion(
-            @NonNull Identifier sprite,
+            @NonNull HudSprite sprite,
             int texW,
             int texH,
             int u,

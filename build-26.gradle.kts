@@ -1,5 +1,5 @@
 plugins {
-    id("net.fabricmc.fabric-loom") // version declared in settings.gradle.kts
+    id("net.fabricmc.fabric-loom")
 }
 
 val mod_version: String by project
@@ -11,6 +11,7 @@ val depsFabricApi = property("deps.fabric_api") as String
 val depsModmenu = property("deps.modmenu") as String
 val depsYacl = property("deps.yacl") as String
 val depsJdk = (property("deps.jdk") as String).toInt()
+val minecraftRange = property("minecraft.range") as String
 
 base {
     archivesName = archives_base_name
@@ -38,6 +39,20 @@ dependencies {
     testRuntimeOnly(libs.junit.platform.launcher)
 }
 
+loom {
+    enableTransitiveAccessWideners.set(false)
+}
+
+sourceSets {
+    main {
+        java.srcDir("src/main/java")
+        java.srcDir("versions/${sc.current.version}/src/main/java")
+
+        resources.srcDir("src/main/resources")
+        resources.srcDir("versions/${sc.current.version}/src/main/resources")
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
 }
@@ -46,7 +61,7 @@ tasks.processResources {
     val deps = mapOf(
         "version" to project.version,
         "minecraft_version" to sc.current.version,
-        "minecraft_version_range" to ">=${sc.current.version}",
+        "minecraft_version_range" to minecraftRange,
         "fabric_loader_version" to depsFabricLoader,
         "fabric_api_version" to depsFabricApi,
         "yacl_version" to depsYacl,
@@ -67,6 +82,10 @@ tasks.withType<JavaCompile>().configureEach {
 
 java {
     withSourcesJar()
+}
+
+tasks.withType<Jar>().configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.jar {

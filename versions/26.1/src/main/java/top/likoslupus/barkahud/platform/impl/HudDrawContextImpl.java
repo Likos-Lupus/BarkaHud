@@ -1,4 +1,4 @@
-package top.likoslupus.barkahud.platform;
+package top.likoslupus.barkahud.platform.impl;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Font;
@@ -6,6 +6,8 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NonNull;
+import top.likoslupus.barkahud.hud.HudSprite;
+import top.likoslupus.barkahud.platform.IHudDrawContext;
 
 public class HudDrawContextImpl implements IHudDrawContext {
 
@@ -53,18 +55,18 @@ public class HudDrawContextImpl implements IHudDrawContext {
 
     @Override
     public void drawSprite(
-            @NonNull Identifier sprite,
+            @NonNull HudSprite sprite,
             int x,
             int y,
             int w,
             int h
     ) {
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, w, h);
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, toId(sprite), x, y, w, h);
     }
 
     @Override
     public void drawSpriteRegion(
-            @NonNull Identifier sprite,
+            @NonNull HudSprite sprite,
             int texW,
             int texH,
             int u,
@@ -74,7 +76,7 @@ public class HudDrawContextImpl implements IHudDrawContext {
             int w,
             int h
     ) {
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, texW, texH, u, v, x, y, w, h);
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, toId(sprite), texW, texH, u, v, x, y, w, h);
     }
 
     @Override
@@ -85,6 +87,10 @@ public class HudDrawContextImpl implements IHudDrawContext {
             int color
     ) {
         graphics.text(font, text, x, y, color);
+    }
+
+    private static Identifier toId(@NonNull HudSprite sprite) {
+        return Identifier.fromNamespaceAndPath(sprite.namespace(), sprite.path());
     }
 
 }

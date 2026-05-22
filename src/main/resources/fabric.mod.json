@@ -24,9 +24,6 @@
       "top.likoslupus.barkahud.compat.modmenu.ModMenuIntegration"
     ]
   },
-  "mixins": [
-    "barkahud.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "minecraft": "${minecraft_version_range}",

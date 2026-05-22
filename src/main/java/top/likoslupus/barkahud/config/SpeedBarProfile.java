@@ -4,10 +4,10 @@ import org.jspecify.annotations.NonNull;
 
 public enum SpeedBarProfile {
 
-    PACKED(0, 40, 4.55, "barkahud.option.bar_type.PACKED"),
-    MIXED(8, 70, 182.0 / 62.0, "barkahud.option.bar_type.MIXED"),
-    BLUE(40, 70, 182.0 / 30.0, "barkahud.option.bar_type.BLUE"),
-    PROGRESSIVE(0, 70, 0, "barkahud.option.bar_type.PROGRESSIVE") {
+    PACKED(0, 40, 4.55, "barkahud.enum.speed_bar_profile.PACKED"),
+    MIXED(8, 70, 182.0 / 62.0, "barkahud.enum.speed_bar_profile.MIXED"),
+    BLUE(40, 70, 182.0 / 30.0, "barkahud.enum.speed_bar_profile.BLUE"),
+    PROGRESSIVE(0, 70, 0, "barkahud.enum.speed_bar_profile.PROGRESSIVE") {
         @Override
         public int getProgress(double displayedSpeed, int barWidth) {
             double ratio = (double) barWidth / 182.0;

@@ -1,7 +1,7 @@
 package top.likoslupus.barkahud;
 
-import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NonNull;
+import top.likoslupus.barkahud.hud.HudSprite;
 
 public enum SpeedBar {
 
@@ -9,29 +9,29 @@ public enum SpeedBar {
             0,
             40,
             4.55,
-            Identifier.fromNamespaceAndPath("barkahud", "bar_1_lit"),
-            Identifier.fromNamespaceAndPath("barkahud", "bar_1_unlit")
+            HudSprite.barkahud("bar_1_lit"),
+            HudSprite.barkahud("bar_1_unlit")
     ),
     MIXED(
             8,
             70,
             182d / 62d,
-            Identifier.fromNamespaceAndPath("barkahud", "bar_2_lit"),
-            Identifier.fromNamespaceAndPath("barkahud", "bar_2_unlit")
+            HudSprite.barkahud("bar_2_lit"),
+            HudSprite.barkahud("bar_2_unlit")
     ),
     BLUE(
             40,
             70,
             182d / 30d,
-            Identifier.fromNamespaceAndPath("barkahud", "bar_3_lit"),
-            Identifier.fromNamespaceAndPath("barkahud", "bar_3_unlit")
+            HudSprite.barkahud("bar_3_lit"),
+            HudSprite.barkahud("bar_3_unlit")
     ),
     PROGRESSIVE(
             0,
             70,
             0,
-            Identifier.fromNamespaceAndPath("barkahud", "bar_4_lit"),
-            Identifier.fromNamespaceAndPath("barkahud", "bar_4_unlit")
+            HudSprite.barkahud("bar_4_lit"),
+            HudSprite.barkahud("bar_4_unlit")
     ) {
         @Override
         public int getProgress(double displayedSpeed) {
@@ -44,14 +44,14 @@ public enum SpeedBar {
     };
 
     public final double minV, maxV, scaleV;
-    public final Identifier litBar, unlitBar;
+    public final HudSprite litBar, unlitBar;
 
     SpeedBar(
             double minV,
             double maxV,
             double scaleV,
-            @NonNull Identifier litBar,
-            @NonNull Identifier unlitBar
+            @NonNull HudSprite litBar,
+            @NonNull HudSprite unlitBar
     ) {
         this.minV = minV;
         this.maxV = maxV;

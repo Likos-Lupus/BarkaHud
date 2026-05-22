@@ -31,22 +31,22 @@ public class ModMenuIntegration implements ModMenuApi {
                 .category(ConfigCategory.createBuilder()
                         .name(Component.translatable("barkahud.config.category.hud"))
                         .option(Option.<Boolean>createBuilder()
-                                .name(Component.translatable("barkahud.option.enabled"))
+                                .name(Component.translatable("barkahud.option.hud_enabled"))
                                 .binding(defaults.hudEnabled,
                                         () -> ConfigManager.get().hudEnabled,
                                         val -> ConfigManager.get().hudEnabled = val)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<Boolean>createBuilder()
-                                .name(Component.translatable("barkahud.option.extended"))
-                                .description(OptionDescription.of(Component.translatable("barkahud.tooltip.extended")))
+                                .name(Component.translatable("barkahud.option.extended_hud"))
+                                .description(OptionDescription.of(Component.translatable("barkahud.tooltip.extended_hud")))
                                 .binding(defaults.extendedHud,
                                         () -> ConfigManager.get().extendedHud,
                                         val -> ConfigManager.get().extendedHud = val)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.<SpeedUnit>createBuilder()
-                                .name(Component.translatable("barkahud.option.speed_format"))
+                                .name(Component.translatable("barkahud.option.speed_unit"))
                                 .binding(defaults.speedUnit,
                                         () -> ConfigManager.get().speedUnit,
                                         val -> ConfigManager.get().speedUnit = val)
@@ -55,13 +55,13 @@ public class ModMenuIntegration implements ModMenuApi {
                                         .valueFormatter(v -> Component.translatable(v.translationKey)))
                                 .build())
                         .option(Option.<SpeedBarProfile>createBuilder()
-                                .name(Component.translatable("barkahud.option.bar_type"))
+                                .name(Component.translatable("barkahud.option.speed_bar_profile"))
                                 .description(OptionDescription.of(
-                                        Component.translatable("barkahud.tooltip.bar_type"),
-                                        Component.translatable("barkahud.tooltip.bar_type.packed"),
-                                        Component.translatable("barkahud.tooltip.bar_type.mixed"),
-                                        Component.translatable("barkahud.tooltip.bar_type.blue"),
-                                        Component.translatable("barkahud.tooltip.bar_type.progressive")))
+                                        Component.translatable("barkahud.tooltip.speed_bar_profile"),
+                                        Component.translatable("barkahud.tooltip.speed_bar_profile.packed"),
+                                        Component.translatable("barkahud.tooltip.speed_bar_profile.mixed"),
+                                        Component.translatable("barkahud.tooltip.speed_bar_profile.blue"),
+                                        Component.translatable("barkahud.tooltip.speed_bar_profile.progressive")))
                                 .binding(defaults.speedBarProfile,
                                         () -> ConfigManager.get().speedBarProfile,
                                         val -> ConfigManager.get().speedBarProfile = val)
@@ -73,8 +73,8 @@ public class ModMenuIntegration implements ModMenuApi {
                 .category(ConfigCategory.createBuilder()
                         .name(Component.translatable("barkahud.config.category.camera"))
                         .option(Option.<Boolean>createBuilder()
-                                .name(Component.translatable("barkahud.option.camera_control"))
-                                .description(OptionDescription.of(Component.translatable("barkahud.tooltip.camera_control")))
+                                .name(Component.translatable("barkahud.option.camera_enabled"))
+                                .description(OptionDescription.of(Component.translatable("barkahud.tooltip.camera_enabled")))
                                 .binding(defaults.cameraEnabled,
                                         () -> ConfigManager.get().cameraEnabled,
                                         val -> ConfigManager.get().cameraEnabled = val)

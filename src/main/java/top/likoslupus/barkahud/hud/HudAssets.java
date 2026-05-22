@@ -1,32 +1,25 @@
 package top.likoslupus.barkahud.hud;
 
-import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
-
 public final class HudAssets {
 
-    public static final Identifier BACKGROUND_EXTENDED = id("background_extended");
-    public static final Identifier BACKGROUND_COMPACT = id("background_compact");
-    public static final Identifier LEFT_UNLIT = id("left_unlit");
-    public static final Identifier LEFT_LIT = id("left_lit");
-    public static final Identifier RIGHT_UNLIT = id("right_unlit");
-    public static final Identifier RIGHT_LIT = id("right_lit");
-    public static final Identifier FORWARD_UNLIT = id("forward_unlit");
-    public static final Identifier FORWARD_LIT = id("forward_lit");
-    public static final Identifier BACKWARD_UNLIT = id("backward_unlit");
-    public static final Identifier BACKWARD_LIT = id("backward_lit");
-    public static final Identifier PING_5 = id("ping_5");
-    public static final Identifier PING_4 = id("ping_4");
-    public static final Identifier PING_3 = id("ping_3");
-    public static final Identifier PING_2 = id("ping_2");
-    public static final Identifier PING_1 = id("ping_1");
-    public static final Identifier PING_UNKNOWN = id("ping_unknown");
+    public static final HudSprite BACKGROUND_EXTENDED = HudSprite.barkahud("background_extended");
+    public static final HudSprite BACKGROUND_COMPACT = HudSprite.barkahud("background_compact");
+    public static final HudSprite LEFT_UNLIT = HudSprite.barkahud("left_unlit");
+    public static final HudSprite LEFT_LIT = HudSprite.barkahud("left_lit");
+    public static final HudSprite RIGHT_UNLIT = HudSprite.barkahud("right_unlit");
+    public static final HudSprite RIGHT_LIT = HudSprite.barkahud("right_lit");
+    public static final HudSprite FORWARD_UNLIT = HudSprite.barkahud("forward_unlit");
+    public static final HudSprite FORWARD_LIT = HudSprite.barkahud("forward_lit");
+    public static final HudSprite BACKWARD_UNLIT = HudSprite.barkahud("backward_unlit");
+    public static final HudSprite BACKWARD_LIT = HudSprite.barkahud("backward_lit");
+    public static final HudSprite PING_5 = HudSprite.barkahud("ping_5");
+    public static final HudSprite PING_4 = HudSprite.barkahud("ping_4");
+    public static final HudSprite PING_3 = HudSprite.barkahud("ping_3");
+    public static final HudSprite PING_2 = HudSprite.barkahud("ping_2");
+    public static final HudSprite PING_1 = HudSprite.barkahud("ping_1");
+    public static final HudSprite PING_UNKNOWN = HudSprite.barkahud("ping_unknown");
 
     private HudAssets() {
-    }
-
-    private static Identifier id(@NonNull String path) {
-        return Identifier.fromNamespaceAndPath("barkahud", path);
     }
 
 }

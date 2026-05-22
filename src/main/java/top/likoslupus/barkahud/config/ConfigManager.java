@@ -1,6 +1,5 @@
 package top.likoslupus.barkahud.config;
 
-import net.fabricmc.loader.api.FabricLoader;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,19 +41,19 @@ public class ConfigManager {
     }
 
     static void replace(@NonNull BarkaHudConfig config) {
-        instance = config;
+        BarkaHudConfig target = BarkaHudConfig.HANDLER.instance();
+
+        target.schemaVersion = config.schemaVersion;
+        target.hudEnabled = config.hudEnabled;
+        target.extendedHud = config.extendedHud;
+        target.speedUnit = config.speedUnit;
+        target.speedBarProfile = config.speedBarProfile;
+        target.cameraEnabled = config.cameraEnabled;
+        target.cameraAggressivenessMetersPerSecond = config.cameraAggressivenessMetersPerSecond;
+        target.cameraSmoothingPercent = config.cameraSmoothingPercent;
+
+        instance = target;
         BarkaHudConfig.HANDLER.save();
         LOGGER.info("Replaced config with provided instance");
     }
-
-    public static void migrateLegacyIfNecessary() {
-        if (!initialized) {
-            load();
-        }
-        var configDir = FabricLoader.getInstance().getConfigDir();
-        LegacyPropertiesMigrator.migrate(
-                configDir.resolve("barkahud.properties"),
-                configDir.resolve("barkahud.properties.migrated"));
-    }
-
 }

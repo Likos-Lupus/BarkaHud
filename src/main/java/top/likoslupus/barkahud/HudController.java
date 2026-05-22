@@ -1,32 +1,21 @@
 package top.likoslupus.barkahud;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
-import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
+import top.likoslupus.barkahud.core.snapshot.HudSnapshot;
+import top.likoslupus.barkahud.core.telemetry.BoatTelemetry;
+import top.likoslupus.barkahud.platform.IClientSnapshotProvider;
 
 public class HudController {
 
-    private static final double TPS_DIV_G = 20.0 / 9.80665;
-
-    private static HudController instance;
-
-    private final Minecraft client;
     private final HudRenderer hudRenderer;
+    private final IClientSnapshotProvider snapshotProvider;
     private HudSnapshot currentSnapshot = HudSnapshot.EMPTY;
     private double oldSpeed;
     private boolean firstFrame = true;
 
-    public HudController(@NonNull Minecraft client) {
-        this.client = client;
+    public HudController(@NonNull IClientSnapshotProvider snapshotProvider) {
+        this.snapshotProvider = snapshotProvider;
         this.hudRenderer = new HudRenderer();
-        instance = this;
-    }
-
-    public static HudController getInstance() {
-        return instance;
     }
 
     public HudSnapshot getSnapshot() {
@@ -38,75 +27,22 @@ public class HudController {
     }
 
     public void tick() {
-        var player = client.player;
-        if (player == null) {
+        var snapshot = snapshotProvider.capture();
+        if (snapshot == HudSnapshot.EMPTY) {
             setEmpty();
             return;
         }
-
-        var vehicle = player.getVehicle();
-        if (!(vehicle instanceof AbstractBoat boat)) {
-            setEmpty();
-            return;
-        }
-
-        if (boat.getFirstPassenger() != player) {
-            setEmpty();
-            return;
-        }
-
-        Vec3 velocityH = boat.getDeltaMovement().multiply(1, 0, 1);
-        Vec3 lookH = boat.getLookAngle().multiply(1, 0, 1);
-
-        double speed = velocityH.length() * 20;
-
-        double driftAngle = calculateDriftAngle(velocityH, lookH);
-
-        double gForce = firstFrame ? 0 : (speed - oldSpeed) * TPS_DIV_G;
+        double gForce = firstFrame ? 0 : BoatTelemetry.calculateGForce(snapshot.speedMS(), oldSpeed);
         firstFrame = false;
-        oldSpeed = speed;
+        oldSpeed = snapshot.speedMS();
 
-        var connection = client.getConnection();
-        PlayerInfo playerInfo = connection != null ? connection.getPlayerInfo(player.getUUID()) : null;
-        int ping = playerInfo != null ? playerInfo.getLatency() : -1;
-
-        boolean isDriver = boat.getControllingPassenger() == player;
-
-        var options = client.options;
-        currentSnapshot = new HudSnapshot(
-                player.getName().getString(),
-                speed,
-                driftAngle,
-                gForce,
-                ping,
-                isDriver,
-                options.keyLeft.isDown(),
-                options.keyRight.isDown(),
-                options.keyUp.isDown(),
-                options.keyDown.isDown()
-        );
+        currentSnapshot = snapshot.withGForce(gForce);
     }
 
     private void setEmpty() {
         currentSnapshot = HudSnapshot.EMPTY;
         oldSpeed = 0;
         firstFrame = true;
-    }
-
-    static double calculateDriftAngle(
-            @NonNull Vec3 horizontalVelocity,
-            @NonNull Vec3 horizontalLook
-    ) {
-        double vLen = horizontalVelocity.length();
-        if (vLen == 0) return 0;
-
-        double lLen = horizontalLook.length();
-        if (lLen == 0) return 0;
-
-        double dot = horizontalVelocity.dot(horizontalLook);
-        double cos = Mth.clamp(dot / (vLen * lLen), -1, 1);
-
-        return Math.toDegrees(Math.acos(cos));
     }
 
 }
