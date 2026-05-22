@@ -10,7 +10,6 @@ val depsFabricLoader = property("deps.fabric_loader") as String
 val depsFabricApi = property("deps.fabric_api") as String
 val depsModmenu = property("deps.modmenu") as String
 val depsYacl = property("deps.yacl") as String
-val depsCloth = property("deps.cloth") as String
 val depsJdk = (property("deps.jdk") as String).toInt()
 
 base {
@@ -22,7 +21,6 @@ group = maven_group
 repositories {
     maven("https://maven.terraformersmc.com/releases/") { name = "TerraformersMC" }
     maven("https://maven.isxander.dev/releases") { name = "Xander Maven" }
-    maven("https://maven.shedaniel.me/") { name = "Shedaniel (transitional, remove in Phase 2)" }
 }
 
 dependencies {
@@ -32,10 +30,6 @@ dependencies {
     implementation("net.fabricmc.fabric-api:fabric-api:$depsFabricApi")
     implementation("com.terraformersmc:modmenu:$depsModmenu")
     implementation("dev.isxander:yet-another-config-lib:$depsYacl")
-
-    implementation("me.shedaniel.cloth:cloth-config-fabric:$depsCloth") {
-        exclude(group = "net.fabricmc.fabric-api")
-    }
 }
 
 tasks.processResources {

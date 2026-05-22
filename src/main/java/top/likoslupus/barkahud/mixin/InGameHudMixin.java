@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.likoslupus.barkahud.Common;
-import top.likoslupus.barkahud.Config;
+import top.likoslupus.barkahud.config.ConfigManager;
 
 @Mixin(Gui.class)
 public class InGameHudMixin {
@@ -19,7 +19,7 @@ public class InGameHudMixin {
             at = @At("TAIL")
     )
     public void render(GuiGraphicsExtractor graphics, DeltaTracker counter, CallbackInfo info) {
-        if (Config.enabled && Common.ridingBoat && !(Common.client.screen instanceof ChatScreen)) {
+        if (ConfigManager.get().hudEnabled && Common.ridingBoat && !(Common.client.screen instanceof ChatScreen)) {
             Common.hudRenderer.render(graphics, counter);
         }
     }

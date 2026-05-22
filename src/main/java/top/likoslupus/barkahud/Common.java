@@ -3,6 +3,7 @@ package top.likoslupus.barkahud;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import top.likoslupus.barkahud.config.ConfigManager;
 
 public class Common {
 
@@ -14,8 +15,11 @@ public class Common {
     public void onInitializeClient() {
         client = Minecraft.getInstance();
         hudRenderer = new HudRenderer(client);
-        Config.load();
-        ClientTickEvents.END_LEVEL_TICK.register(clientWorld -> {
+
+        ConfigManager.load();
+        ConfigManager.migrateLegacyIfNecessary();
+
+        ClientTickEvents.END_LEVEL_TICK.register(_ -> {
             if (client.player == null) return;
             if (client.player.getVehicle() instanceof AbstractBoat boat && boat.getFirstPassenger() == client.player) {
                 if (hudData == null) {
@@ -28,9 +32,10 @@ public class Common {
                 }
             }
         });
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
-            if (!Config.cameraControl) return;
+            if (!ConfigManager.get().cameraEnabled) return;
             if (client.player.getVehicle() instanceof AbstractBoat boat && boat.getControllingPassenger() == client.player) {
                 CameraHandler.tick(boat, client.player);
             }

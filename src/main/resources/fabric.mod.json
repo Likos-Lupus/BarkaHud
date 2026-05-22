@@ -19,9 +19,6 @@
   "entrypoints": {
     "client": [
       "top.likoslupus.barkahud.Common::onInitializeClient"
-    ],
-    "modmenu": [
-      "top.likoslupus.barkahud.MenuInteg"
     ]
   },
   "mixins": [
