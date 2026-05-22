@@ -2,10 +2,10 @@ package top.likoslupus.barkahud.config;
 
 public enum SpeedBarProfile {
 
-    PACKED(0, 40, 4.55),
-    MIXED(8, 70, 182.0 / 62.0),
-    BLUE(40, 70, 182.0 / 30.0),
-    PROGRESSIVE(0, 70, 0) {
+    PACKED(0, 40, 4.55, "barkahud.option.bar_type.PACKED"),
+    MIXED(8, 70, 182.0 / 62.0, "barkahud.option.bar_type.MIXED"),
+    BLUE(40, 70, 182.0 / 30.0, "barkahud.option.bar_type.BLUE"),
+    PROGRESSIVE(0, 70, 0, "barkahud.option.bar_type.PROGRESSIVE") {
         @Override
         public int getProgress(double displayedSpeed, int barWidth) {
             double ratio = (double) barWidth / 182.0;
@@ -20,15 +20,13 @@ public enum SpeedBarProfile {
     public final double minV;
     public final double maxV;
     public final double scaleV;
+    public final String translationKey;
 
-    SpeedBarProfile(
-            double minV,
-            double maxV,
-            double scaleV
-    ) {
+    SpeedBarProfile(double minV, double maxV, double scaleV, String translationKey) {
         this.minV = minV;
         this.maxV = maxV;
         this.scaleV = scaleV;
+        this.translationKey = translationKey;
     }
 
     public int getProgress(double displayedSpeed, int barWidth) {
